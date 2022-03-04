@@ -3,7 +3,7 @@ const cors = require('cors')
 const fetch = require('node-fetch')
 
 const Blockchain = require('./blockchain')
-const PubSub = require('./pubsub')
+const PubSub = require('./app/pubsub')
 
 const app = express()
 
