@@ -9,15 +9,20 @@
     "dev": "nodemon src/index.js",
     "dev-peer": "cross-env GENERATE_PEER_PORT='true' nodemon src/index.js"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "elliptic": "^6.5.4",
     "express": "^4.17.3",
     "hex-to-binary": "^1.0.1",
     "node-fetch": "^2.6.7",
-    "pubnub": "^4.21.6"
+    "pubnub": "^4.21.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
