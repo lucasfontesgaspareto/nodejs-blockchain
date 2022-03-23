@@ -1,7 +1,6 @@
 {
   "name": "nodejs-blockchain",
   "version": "1.0.0",
-  "description": "",
   "main": "src/index.js",
   "scripts": {
     "test": "jest --watchAll",
@@ -28,5 +27,14 @@
     "cross-env": "^7.0.3",
     "jest": "^27.5.1",
     "nodemon": "^2.0.15"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasfontesgaspareto/nodejs-blockchain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lucasfontesgaspareto/nodejs-blockchain/issues"
+  },
+  "homepage": "https://github.com/lucasfontesgaspareto/nodejs-blockchain#readme",
+  "description": ""
 }

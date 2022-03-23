@@ -8,12 +8,15 @@ const credentials = {
 
 const CHANNELS = {
   TEST: 'TEST',
-  BLOCKCHAIN: 'BLOCKCHAIN'
+  BLOCKCHAIN: 'BLOCKCHAIN',
+  TRANSACTION: 'TRANSACTION'
 }
 
 class PubSub {
-  constructor({ blockchain }) {
+  constructor({ blockchain, transactionPool, wallet }) {
     this.blockchain = blockchain
+    this.transactionPool = transactionPool
+    this.wallet = wallet
 
     this.publisher = new PubNub(credentials)
     this.subscriber = new PubNub(credentials)
@@ -37,12 +40,31 @@ class PubSub {
     })
   }
 
+  broadcastTransaction(transactionMap) {
+    this.publish({
+      channel: CHANNELS.TRANSACTION,
+      message: JSON.stringify(transactionMap)
+    })
+  }
+
   handleMessage({ channel, message }) {
     console.log(`Message received. Channel: ${channel}. Message: ${message}`)
 
-    if (channel === CHANNELS.BLOCKCHAIN) {
-      const parsedMessage = JSON.parse(message)
-      this.blockchain.replaceChain(parsedMessage)
+    const parsedMessage = JSON.parse(message)
+
+    switch(channel) {
+      case CHANNELS.BLOCKCHAIN:
+        this.blockchain.replaceChain(parsedMessage)
+        break;
+      case CHANNELS.TRANSACTION:
+        if (!this.transactionPool.existingTransaction({
+          inputAddress: this.wallet.publicKey
+        })) {
+          this.transactionPool.setTransaction(parsedMessage)
+        }
+        break;
+      default:
+        return;
     }
   }
 }
